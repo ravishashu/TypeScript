@@ -1,0 +1,618 @@
+
+Intro
+========================================================================= 
+https://www.tutorialsteacher.com/typescript
+https://www.w3schools.com/typescript/index.php
+Q What is TypeScript?
+
+TypeScript is a syntactic superset of JavaScript which adds static typing.
+
+This basically means that TypeScript adds syntax on top of JavaScript, allowing developers to add types.
+
+Q Why should I use TypeScript?
+
+JavaScript is a loosely typed language. It can be difficult to understand what types of data are being passed around in JavaScript.
+
+In JavaScript, function parameters and variables don't have any information! So developers need to look at documentation, or guess based on the implementation.
+
+TypeScript allows specifying the types of data being passed around within the code, and has the ability to report errors when the types don't match.
+
+For example, TypeScript will report an error when passing a string into a function that expects a number. JavaScript will not.
+
+Types
+========================================================================= 
+There are three main primitives in JavaScript and TypeScript.
+
+boolean - true or false values
+number - whole numbers and floating point values
+string - text values like "TypeScript Rocks"
+
+There are also 2 less common primitives used in later versions of Javascript and TypeScript.
+
+bigint - whole numbers and floating point values, but allows larger negative and positive numbers than the number type.
+symbol are used to create a globally unique identifier.
+
+##Type Assignment
+When creating a variable, there are two main ways TypeScript assigns a type:
+
+Explicit  - writing out the type:
+Implicit - TypeScript will "guess" the type, based on the assigned value
+
+Explicit example
+let firstName: string = "Dylan";
+let firstName = "Dylan";
+
+Implicit example 
+let firstName = "Dylan";
+
+Union Type
+let PreferredName : string | null;
+PreferredName = ’Ravi;’
+PreferredName = null;
+
+Implicit assignment forces TypeScript to infer the value.
+Implicit type assignment is shorter, faster to type, and often used when developing and testing.
+
+Error In Type Assignment
+TypeScript will throw an error if data types do not match.
+let firstName: string = "Dylan"; // type string
+firstName = 33; // attempts to re-assign the value to a different type
+
+TypeScript Special Types
+Type: any
+any is a type that disables type checking and effectively allows all types to be used.
+let v: any = true;
+v = "string"; // no error as it can be "any" type
+Math.round(v); // no error as it can be "any" type
+
+any can be a useful way to get past errors since it disables type checking, but TypeScript will not be able provide type safety, and tools which rely on type data, such as auto completion, will not work. Remember, it should be avoided at "any" cost...
+
+Type: unknown
+unknown is a similar, but safer alternative to any.
+TypeScript will prevent unknown types from being used, as shown in the below example:
+
+let w: unknown = 1;
+w = "string"; // no error
+
+Type: never
+never effectively throws an error whenever it is defined.
+Type: undefined & null
+undefined and null are types that refer to the JavaScript primitives undefined and null respectively.
+let y: undefined = undefined;
+let z: null = null;
+Array 
+const names: string[] = [];
+names.push("Dylan"); // no error
+const names: readonly string[] = ["Dylan"];
+names.push("Jack"); // Error: Property 'push' does not exist on type 'readonly string[]'.
+Type Inference
+TypeScript can infer the type of an array if it has values.
+const numbers = [1, 2, 3]; // inferred to type number[]
+numbers.push(4); // no error
+
+ENUM
+
+enum CardinalDirections {
+  North,
+  East,
+  South,
+  West
+}
+let currentDirection = CardinalDirections.North;
+// logs 0
+console.log(currentDirection);
+// throws error as 'North' is not a valid enum
+currentDirection = 'North'; // Error: "North" is not assignable to type 'CardinalDirections'.
+
+Numeric Enums - Initialized
+You can set the value of the first numeric enum and have it auto increment from that:
+enum CardinalDirections {
+  North = 1,
+  East,
+  South,
+  West
+}
+// logs 1
+console.log(CardinalDirections.North);
+// logs 4
+console.log(CardinalDirections.West);
+
+Numeric Enums - Fully Initialized
+You can assign unique number values for each enum value. Then the values will not incremented automatically:
+enum StatusCodes {
+  NotFound = 404,
+  Success = 200,
+  Accepted = 202,
+  BadRequest = 400
+}
+// logs 404
+console.log(StatusCodes.NotFound);
+// logs 200
+console.log(StatusCodes.Success);
+
+function 
+
+function productDetails(id,name) //input type is any
+{
+    console.log(`Product ID is ${id}`);
+    console.log(`Product name is ${name}`);
+}
+
+console.log(productDetails(10,'cake'));
+console.log(productDetails('one',['cake','sugar'])); //accepts any inputs
+
+
+//can declare function bellow also compiler will hoist the function
+console.log(productDetails(10,'cake'));
+console.log(productDetails('one',['cake','sugar'])); //accepts any inputs
+
+function productDetails(id,name) //input type is any
+{
+    console.log(`Product ID is ${id}`);
+    console.log(`Product name is ${name}`);
+}
+
+function addNumber(x : number,y : number) //accepts any inputs number only
+{
+    const sum : number = x + y;
+    return sum;
+}
+
+console.log( `The sum of 1 and 2 is ${addNumber(1,2)}`)
+
+let test = addNumber('d','r');
+/*
+you get error Argument of type 'string' is not assignable to parameter of type 'number'.
+ */
+
+Functions Expression 
+
+const addNumber = function (x : number,y : number) // accept only number
+{
+    const sum : number = x + y;
+    return sum;
+}
+const x = 50;
+
+
+const y = 60;
+const sum = addNumber(1,2);
+console.log( `The sum of ${x} and ${y} is ${sum}`);
+
+Important cannot be hoisted 
+
+Return value form object
+
+const employees= [
+    {id : 1 ,name : 'Matt' , salary : 10000},
+    {id : 1 ,name : 'John' , salary : 20000},
+    {id : 1 ,name : 'Dave' , salary : 30000},
+]
+
+function getEmployeeName () :string [] // returns a string array
+{
+    return employees.map(r=> r.name);
+}
+
+console.log(`${getEmployeeName()} are the employees`);
+
+type department = {
+    id : number,
+    name : string,
+    location : string
+}
+
+let departments :department[] =
+[
+    {id :1,name : 'IT', location :'london'},
+    {id :1,name : 'Finance', location :'York'},
+    {id :1,name : 'HR', location :'India'},
+]
+
+function getDepartmentById(id:number): department | undefined{
+ return departments.find(r=>r.id === id);
+}
+
+console.log(getDepartmentById(1));
+
+
+
+Async function
+
+async function getUser()  
+{
+    const responce = await       fetch('https://jsonplaceholder.typicode.com/todos/1');
+    const json = await responce.json();
+    const touser :user = json
+    return touser;
+    
+}
+
+console.log(getUser());
+
+ fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json))
+
+Arrow function
+let sum = (x: number, y: number): number => {
+    return x + y;
+}
+
+console.log(sum(10, 20));
+
+type department = {
+    id : number,
+    name : string,
+    location : string
+}
+
+let departments :department[] =
+[
+    {id :1,name : 'IT', location :'london'},
+    {id :2,name : 'Finance', location :'York'},
+    {id :3 ,name : 'HR', location :'India'},
+]
+
+let getDepartment = (id : number): department | undefined => {
+    return departments.find(d=>d.id === id)
+}
+
+console.log(getDepartment(1))
+
+Optional Parameter
+
+function Greet(greeting: string, name?: string ) : string {
+    return greeting + ' ' + name + '!';
+}
+
+Greet('Hello','Steve');//OK, returns "Hello Steve!"
+Greet('Hi'); // OK, returns "Hi undefined!".
+Greet('Hi','Bill','Gates'); //Compiler Error: Expected 2 arguments, but got 3.
+type vistor ={
+id :number,
+name : string,
+age? : number 
+}
+
+function createVisitor( id :number, name :string, age? : number) : vistor
+{
+  return { id , name, age }
+}
+
+console.log(createVisitor(1,'Ravi')) // you can see parameter is not required.
+
+console.log(createVisitor(1,'Ravi',40)) // this with parameter.
+
+
+Default Parameters
+
+function Greet(name: string, greeting: string = "Hello") : string {
+    return greeting + ' ' + name + '!';
+}
+
+console.log(Greet('Steve'));//OK, returns "Hello Steve!"
+console.log(Greet('Steve', 'Hi')); // OK, returns "Hi Steve!".
+console.log(Greet('Bill')); //OK, returns "Hello Bill!"
+
+type vistor ={
+id :number,
+name : string,
+age? : number ,
+picture : string
+}
+
+function createVisitor( id :number, name :string, age? : number , picture  : string = 'gray icon.jpeg') : vistor
+{
+  return { id , name, age , picture }
+}
+
+console.log(createVisitor(1,'Ravi',40, 'Ravi.jpeg')) // this with parameter.
+console.log(createVisitor(1,'Ravi',40, )) // this without parameter.
+
+Rest Parameter 
+function Greet(greeting: string, ...names: string[]) : string {
+    return greeting + ' ' + names.join(", ") + "!";
+}
+
+console.log(Greet('Hi','Steve')); // OK, returns "Hi Steve!".
+console.log(Greet('Wellcome','Bill','Mike','Dan','Joe')); //OK, returns "Wellcome Bill, Mike, Dan, Joe!"
+
+Rest Parameters
+Can we used for we don’t know how much data we will need
+function Greet(greeting: string, ...names: string[]) : string {
+    return greeting + ' ' + names.join(", ") + "!";
+}
+
+console.log(Greet('Hi','Steve')); // OK, returns "Hi Steve!".
+console.log(Greet('Wellcome','Bill','Mike','Dan','Joe')); //OK, returns "Wellcome Bill, Mike, Dan, Joe!"
+
+type vistor ={
+id :number,
+name : string,
+age? : number ,
+picture : string
+address :string[]
+}
+
+function createVisitor( id :number, name :string, age? : number , picture  : string = 'gray icon.jpeg', ...address :string[]) : vistor
+{
+  return { id , name, age , picture , address}
+}
+
+console.log(createVisitor(1,'Ravi',40, 'Ravi.jpeg','12','Baker Street','Central Lonton', 'london','W1S 3WE')) // this with rest parameter.
+
+
+Parameter Destructing
+const vtr =createVisitor(1,'Ravi',40, 'Ravi.jpeg','12','Baker Street','Central Lonton', 'london','W1S 3WE');
+
+function displayVisitor( {id,name }: vistor ): void //Destructing parameter we just use what we need
+{
+  console.log(`Vistor ID is ${id} , vistor name is ${name}`);
+}
+
+displayVisitor(vtr);
+// output "Vistor ID is 1 , vistor name is Ravi"
+
+Interface
+
+Example of using interface
+
+interface Store {
+  id : number,
+  name : string,
+  address :string[]
+  phone? :string
+}
+
+let myStore :Store ={id : 1, name : 'London', address : ['12 Backer steet','W2 v0'], phone : '01234 123456'}
+
+console.log (myStore);
+
+interface KeyPair {
+    key: number;
+    value: string;
+}
+
+let students: KeyPair[] =[{key :1,value :'Ravi'}]
+
+function addKeyValue(key:number, value:string):void { 
+   students.push({key ,value});
+}
+
+addKeyValue(2, 'Sam');
+console.log(students);
+
+function updateKeyValue(key: number, value:string):void { 
+   let indexToUpdate = students.findIndex( item => item.key === key);
+   students[indexToUpdate] = {key,value};
+}
+
+updateKeyValue(2, 'John');
+console.log(students);
+
+function deletebyKey(key :number) :void
+{
+   let indexToDelete = students.findIndex( item => item.key === key);
+   students.splice(indexToDelete,1);
+}
+deletebyKey(2);
+console.log(students);
+
+Extending an interface
+interface Person
+{
+ name :string,
+ age :number
+}
+
+interface Employee extends  Person
+{
+ department :string
+}
+
+let emp : Employee = { name :'Sam',age :40, department : 'IT'};
+
+console.log(emp);
+
+Class
+class Employee {
+    empCode: number;
+    empName: string;
+    empWagePerDay : number;
+    empNoOfDaysWorked : number;
+
+    constructor(code: number, name: string, wage :number ,noOfDaysWorked : number) {
+            this.empName = name;
+            this.empCode = code;
+            this.empWagePerDay = wage;
+            this.empNoOfDaysWorked =noOfDaysWorked ;
+    }
+
+    getSalary() : number {
+        return this.empWagePerDay * this.empNoOfDaysWorked;
+    }
+}
+
+let emp : Employee =new Employee(1,'Ravi',1000,25);
+console.log(emp.getSalary());
+
+Extending a class
+
+class Product{
+    name:string;
+    weight: number;
+    unitOfWeight: string;
+    price: number
+  
+
+    constructor(
+        name: string,
+        weight: number,
+        unitOfWeight: string,
+        price: number
+    )
+    {
+        this.weight = weight;
+        this.unitOfWeight = unitOfWeight;
+        this.name = name
+        this.price = price 
+    }
+   
+}
+
+class FoodProduct extends Product{
+    ingredients: string[]
+    constructor(ingredients: string[],name: string,
+        weight: number,
+        unitOfWeight: string,
+        price: number)
+    {
+        super(name,weight,unitOfWeight,price);
+        this.ingredients=ingredients;
+    }
+
+}
+
+let cake :FoodProduct =new FoodProduct(['Wheate','sugar','egg','banana'],'banana cake',100,'gms',10)
+console.log(cake)
+Abstract Class
+
+abstract class Product
+{
+   productPrice: number;
+
+   constructor(price: number)
+   {
+    this.productPrice =price;
+   }
+
+}
+
+//let p=new Product(2); //Error: Cannot create an instance of an abstract class.
+
+class FoodProduct extends Product
+{
+    isVigan : boolean;
+    isVegertian: boolean ;
+     constructor(isVigan : boolean,isVegertian: boolean,price :number)
+    {
+        super(price);
+        this.isVegertian=isVegertian;
+        this.isVigan =isVigan;
+    }
+}
+
+let cake = new FoodProduct(true,true,12);
+
+console.log(cake)
+
+Implementing Interface
+
+interface ProductBase
+{
+    weight : number;
+}
+
+abstract class Product implements ProductBase
+{
+   productPrice: number;
+   weight: number;
+   constructor(price: number,weight: number)
+   {
+    this.productPrice =price;
+    this.weight =weight;
+   }
+}
+
+//let p=new Product(2); //Error: Cannot create an instance of an abstract class.
+
+class FoodProduct extends Product
+{
+    isVigan : boolean;
+    isVegertian: boolean ;
+     constructor(isVigan : boolean,isVegertian: boolean,price :number,weight: number)
+    {
+        super(price,weight);
+        this.isVegertian=isVegertian;
+        this.isVigan =isVigan;
+    }
+}
+
+let cake = new FoodProduct(true,true,12,100);
+
+console.log(cake)
+
+
+Generuc Interfaces 
+
+Example of using a interface
+
+interface KeyPair<T, U> {
+    key: T;
+    value: U;
+}
+
+let kv1: KeyPair<number, string> = { key:1, value:"Steve" }; // OK
+let kv2: KeyPair<number, number> = { key:1, value:12345 }; // OK
+
+Creating a generic function using interface
+interface KeyValueProcessor<T, U>
+{
+    (key: T, val: U): void;
+};
+
+function processNumKeyPairs(key:number, value:number):void { 
+    console.log('processNumKeyPairs: key = ' + key + ', value = ' + value)
+}
+
+function processStringKeyPairs(key: number, value:string):void { 
+    console.log('processStringKeyPairs: key = '+ key + ', value = ' + value)
+}
+    
+let numKVProcessor: KeyValueProcessor<number, number> = processNumKeyPairs;
+numKVProcessor(1, 12345); //Output: processNumKeyPairs: key = 1, value = 12345 
+
+let strKVProcessor: KeyValueProcessor<number, string> = processStringKeyPairs;
+strKVProcessor(1, "Bill"); //Output: processStringKeyPairs: key = 1, value = Bill 
+
+implementing a function 
+interface IKeyValueProcessor<T, U>
+{
+    process(key: T, val: U): void;
+};
+
+class kvProcessor implements IKeyValueProcessor<number, string>
+{ 
+    process(key:number, val:string):void { 
+        console.log(`Key = ${key}, val = ${val}`);
+    }
+}
+
+let proc: IKeyValueProcessor<number, string> = new kvProcessor();
+proc.process(1, 'Bill'); //Output: processKeyPairs: key = 1, value = Bill 
+
+
+Using generic in class
+
+class KeyValuePair<T,U>
+{ 
+    private key: T;
+    private val: U;
+
+    constructor(key: T, val: U){ 
+        this.key = key;
+        this.val = val;
+    }
+
+    display():void { 
+        console.log(`Key = ${this.key}, val = ${this.val}`);
+    }
+}
+
+let student = new KeyValuePair<number, string>(1, "Steve");
+student.display(); //Output: Key = 1, Val = Steve 
+
+let capital = new KeyValuePair<string, string>("UK", "London"); 
+capital.display(); //Output: Key = UK, val = London
+
