@@ -592,6 +592,16 @@ class kvProcessor implements IKeyValueProcessor<number, string>
 let proc: IKeyValueProcessor<number, string> = new kvProcessor();
 proc.process(1, 'Bill'); //Output: processKeyPairs: key = 1, value = Bill 
 
+Using generic functions
+
+function whatis_type<T>(agr :T) :T
+{
+    return agr;
+}
+
+console.log(whatis_type(1))
+
+console.log(whatis_type('s'))
 
 Using generic in class
 
@@ -615,4 +625,6 @@ student.display(); //Output: Key = 1, Val = Steve
 
 let capital = new KeyValuePair<string, string>("UK", "London"); 
 capital.display(); //Output: Key = UK, val = London
+
+
 
