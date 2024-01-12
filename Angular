@@ -1,1 +1,4 @@
-start
+Componenets
+Like most web frameworks, components in Angular allow you to define the HTML, JavaScript, and CSS styles for a page or a section of a page. 
+Components can be as large as an entire web page, or they can just be one small part of a page or even as small as a single button, although that level of 
+granularity is a little less common. In this module, you'll learn how to create simple custom components like this home page component. 
