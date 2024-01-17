@@ -1,4 +1,38 @@
-Componenets
+#Componenets
 Like most web frameworks, components in Angular allow you to define the HTML, JavaScript, and CSS styles for a page or a section of a page. 
 Components can be as large as an entire web page, or they can just be one small part of a page or even as small as a single button, although that level of 
 granularity is a little less common. In this module, you'll learn how to create simple custom components like this home page component. 
+
+##Command to create a component: ng generate component Home
+
+home.component.html - contains HTML
+home.component.css - contains styes
+home.component.ts - contains typescript file to handle the page life cycle events and other events
+home.component.spec.ts - used for unit testing
+
+files are created
+
+##<app-home></app-home> tag is used to add component into a page
+
+##In src\app\app.module.ts we have 
+import { HomeComponent } from './home/home.component'; // which import the component
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent -- adds the component
+  ],
+
+##Change Prefix:
+Instead of calling <app-home></app-home> if you want to change it to <shop-home></shop-home>
+Step 1
+angular.json
+"prefix": "shop",
+
+Step 2
+src\app\home\home.component.ts
+selector: 'app-home' to selector: 'shop-home',
+
+src\app\app.component.html
+<app-home></app-home> to <shop-home></shop-home>
+
+##Global styles are prestented in src\styles.css
