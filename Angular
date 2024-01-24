@@ -36,3 +36,13 @@ src\app\app.component.html
 <app-home></app-home> to <shop-home></shop-home>
 
 ##Global styles are prestented in src\styles.css
+########################################## Styling Components #####################################################################################
+##Interpolation
+By adding {{}} you can bind a class from .ts class
+example
+
+export class HomeComponent {
+  name = 'Wellcome to Angular Ravi';
+}
+
+And in HTML <h2 class="title">Hello {{name}}</h2>
