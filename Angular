@@ -38,6 +38,14 @@ src\app\app.component.html
 ##Global styles are prestented in src\styles.css
 ########################################## Styling Components #####################################################################################
 ##Interpolation
+
+Interpolation is used for one-way data binding in Angular. It embeds an expression into the HTML template. By default, expression should be surrounded by {{ and }}.
+
+<p> 2 + 2 = {{ 2 + 2 }} </p> <!-- output: "2 + 2 = 4" -->
+<p> 2 * 3 = {{ 2 * 3 }} </p> <!-- output:`"2 * 3 = 6" -->
+<p> {{ “2 + 2 != ”+  2 + 2 }} </p> <!-- output:"2 + 2 != 22" -->
+<p> {{ “2 + 2 = ”+  (2 + 2) }} </p> <!-- output:"2 + 2 = 4" -->
+
 By adding {{}} you can bind a class from .ts class
 example
 
@@ -45,4 +53,7 @@ export class HomeComponent {
   name = 'Wellcome to Angular Ravi';
 }
 
-And in HTML <h2 class="title">Hello {{name}}</h2>
+And in HTML <h2 class="title">Hello {{expression }}</h2>
+
+##Attribute Binding
+
