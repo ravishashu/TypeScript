@@ -56,4 +56,21 @@ export class HomeComponent {
 And in HTML <h2 class="title">Hello {{expression }}</h2>
 
 ##Attribute Binding
+To bind to an element's property, enclose it in square brackets, [], which identifies the property as a target property.
+<img alt="item" [src]="itemImageUrl">
 
+NgFor for example also provides access to the index of each hero in the array:
+employees : any;
+  
+ 
+  constructor() {
+    this.employees =[
+      {id: 1, name: 'Ravi'},
+      {id: 2, name: 'Raj'},
+      {id: 3, name: 'Sam'},
+    ] 
+  }
+
+<li *ngFor="let employee of employees">
+  {{employee.id}} : {{employee.name}} <br/>
+</li>
